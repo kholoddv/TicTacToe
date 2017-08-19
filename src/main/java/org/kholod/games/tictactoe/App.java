@@ -1,4 +1,4 @@
-package org.kholod.games.tictactoe.app;
+package org.kholod.games.tictactoe;
 
 import org.kholod.games.tictactoe.controller.Controller;
 import org.kholod.games.tictactoe.model.Game;
