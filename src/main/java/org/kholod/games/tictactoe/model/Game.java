@@ -1,8 +1,11 @@
 package org.kholod.games.tictactoe.model;
 
 import org.kholod.games.tictactoe.controller.Controller;
-import org.kholod.games.tictactoe.view.PrintHelper;
+import org.kholod.games.tictactoe.view.ConsoleHelper;
 
+/**
+ * Represents current game
+ */
 public class Game {
     private Player player1;
     private Player player2;
@@ -10,29 +13,53 @@ public class Game {
     private boolean gameOver = false;
     private Controller controller;
 
+    /**
+     * Creates a new game with given controller
+     *
+     * @param controller given controller
+     */
     public Game(Controller controller) {
         this.controller = controller;
+    }
+
+    public Sign[][] getField() {
+        return field;
     }
 
     public boolean isGameOver() {
         return gameOver;
     }
 
+    /**
+     * Initializes field and players
+     */
     public void start() {
         field = new Sign[][]{
                 {Sign.NOTHING, Sign.NOTHING, Sign.NOTHING},
                 {Sign.NOTHING, Sign.NOTHING, Sign.NOTHING},
                 {Sign.NOTHING, Sign.NOTHING, Sign.NOTHING}
         };
-        PrintHelper.print("Player 1");
+
+        ConsoleHelper.print("*********************************");
+        ConsoleHelper.print("Hello! It is the tic-tac-toe game\n");
+        ConsoleHelper.print("(Type \"exit\" for leaving game)");
+        ConsoleHelper.print("*********************************");
+        ConsoleHelper.print("");
+
+        ConsoleHelper.print("Player 1");
         player1 = new Player(Sign.CROSS, this);
-        PrintHelper.print("Player 2");
+        ConsoleHelper.print("Player 2");
         player2 = new Player(Sign.ZERO, this);
-        PrintHelper.print(player1.getName() + ", plays with " + player1.getSign().getView());
-        PrintHelper.print(player2.getName() + ", plays with " + player2.getSign().getView());
+        ConsoleHelper.print(player1.getName() + ", plays with "
+                + player1.getSign().getView());
+        ConsoleHelper.print(player2.getName() + ", plays with "
+                + player2.getSign().getView());
         controller.getView().print();
     }
 
+    /**
+     * Does one step of game
+     */
     public void step() {
         if (!gameOver) {
             player1.step();
@@ -47,6 +74,12 @@ public class Game {
         }
     }
 
+    /**
+     * Checks whether the given player won. If he was not
+     * checks whether the free cells remained
+     *
+     * @param player given player
+     */
     public void check(Player player) {
         Sign sign = player.getSign();
         if (field[0][0] == sign && field[0][1] == sign && field[0][2] == sign
@@ -58,7 +91,8 @@ public class Game {
                 || field[0][0] == sign && field[1][1] == sign && field[2][2] == sign
                 || field[0][2] == sign && field[1][1] == sign && field[2][0] == sign
                 ) {
-            PrintHelper.print(player.getName() + "(" + player.getSign().getView() + ")" + "win" + "!!!");
+            ConsoleHelper.print(player.getName()
+                    + "(" + player.getSign().getView() + ") " + "win" + "!!!");
             gameOver = true;
             return;
         }
@@ -69,11 +103,7 @@ public class Game {
                     return;
             }
         }
-        PrintHelper.print("The game ended in a draw!!!");
+        ConsoleHelper.print("The game ended in a draw!!!");
         gameOver = true;
-    }
-
-    public Sign[][] getField() {
-        return field;
     }
 }

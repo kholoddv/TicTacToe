@@ -1,24 +1,16 @@
 package org.kholod.games.tictactoe.model;
 
-import org.kholod.games.tictactoe.view.PrintHelper;
+import org.kholod.games.tictactoe.view.ConsoleHelper;
 
 import java.io.IOException;
 
+/**
+ * Represents one player
+ */
 public class Player {
     private Sign sign;
     private String name;
     private Game game;
-
-    public Player(Sign sign, Game game) {
-        this.sign = sign;
-        this.game = game;
-        PrintHelper.print("Enter name:");
-        try {
-            this.name = PrintHelper.read();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public String getName() {
         return name;
@@ -28,18 +20,40 @@ public class Player {
         return sign;
     }
 
+    /**
+     * Creates a new player with given sign and game. Name is requested
+     * from user
+     *
+     * @param sign given sign
+     * @param game given game
+     */
+    public Player(Sign sign, Game game) {
+        this.sign = sign;
+        this.game = game;
+        ConsoleHelper.print("Enter name:");
+        try {
+            this.name = ConsoleHelper.read();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Execute one step of this player
+     */
     public void step() {
-        PrintHelper.print(getName() + "(" + getSign().getView() + ")" + "moves");
+        ConsoleHelper.print(getName() + "(" + getSign().getView() + ") "
+                + "moves");
         String coordinates = "";
         while (true) {
-            PrintHelper.print("Enter coordinates x,y:");
+            ConsoleHelper.print("Enter coordinates x,y (example: \"0,2\"):");
             try {
-                coordinates = PrintHelper.read();
+                coordinates = ConsoleHelper.read();
             } catch (IOException e) {
                 e.printStackTrace();
             }
             if (!coordinates.matches("[012],[012]")) {
-                PrintHelper.print("Incorrect input!");
+                ConsoleHelper.print("Incorrect input!");
                 continue;
             }
             int x = Integer.parseInt(coordinates.substring(0, 1));
@@ -48,7 +62,7 @@ public class Player {
                 game.getField()[y][x] = getSign();
                 return;
             } else {
-                PrintHelper.print("This field is busy!");
+                ConsoleHelper.print("This cell is busy!");
             }
         }
     }

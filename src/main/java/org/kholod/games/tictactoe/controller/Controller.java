@@ -3,6 +3,9 @@ package org.kholod.games.tictactoe.controller;
 import org.kholod.games.tictactoe.model.Game;
 import org.kholod.games.tictactoe.view.View;
 
+/**
+ * Starts and manages the game
+ */
 public class Controller {
     private View view;
     private Game game;
@@ -23,6 +26,9 @@ public class Controller {
         this.game = game;
     }
 
+    /**
+     * Starts the game and executes game steps while it isn't over
+     */
     public void start() {
         game.start();
         while (!game.isGameOver()) {
@@ -33,14 +39,5 @@ public class Controller {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-        Controller controller = new Controller();
-        Game game = new Game(controller);
-        View view = new View(controller);
-        controller.setGame(game);
-        controller.setView(view);
-        controller.start();
     }
 }

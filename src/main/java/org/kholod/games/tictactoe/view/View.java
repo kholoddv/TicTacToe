@@ -3,13 +3,25 @@ package org.kholod.games.tictactoe.view;
 import org.kholod.games.tictactoe.controller.Controller;
 import org.kholod.games.tictactoe.model.Sign;
 
+/**
+ * Represents view of game field
+ */
 public class View {
+
     private Controller controller;
 
+    /**
+     * Creates view with given controller
+     *
+     * @param controller given controller
+     */
     public View(Controller controller) {
         this.controller = controller;
     }
 
+    /**
+     * Prints game field in actual state
+     */
     public void print() {
         System.out.println();
 
