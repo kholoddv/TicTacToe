@@ -14,10 +14,12 @@
         <java.version>1.8</java.version>
         <compiler.plugin.version>3.6.2</compiler.plugin.version>
         <javadoc.plugin.version>3.0.0-M1</javadoc.plugin.version>
+        <jar.plugin.version>3.0.2</jar.plugin.version>
     </properties>
 
     <build>
         <plugins>
+            <!-- Point Java version -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -27,6 +29,23 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
+            <!-- Build an executable JAR -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${jar.plugin.version}</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>org.kholod.games.tictactoe.App
+                            </mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <!-- Generate javadocs -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -45,7 +64,6 @@
                         ${project.build.directory}
                     </reportOutputDirectory>
                     <destDir>javadoc</destDir>
-
                 </configuration>
             </plugin>
         </plugins>
