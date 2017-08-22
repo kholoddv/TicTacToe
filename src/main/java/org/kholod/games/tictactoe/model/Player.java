@@ -39,6 +39,19 @@ public class Player {
     }
 
     /**
+     * Creates a new player with given sign, game and name
+     *
+     * @param sign given sign
+     * @param name given name
+     * @param game given game
+     */
+    public Player(Sign sign, String name, Game game) {
+        this.sign = sign;
+        this.name = name;
+        this.game = game;
+    }
+
+    /**
      * Execute one step of this player
      */
     public void step() {

@@ -26,6 +26,10 @@ public class Game {
         return field;
     }
 
+    public void setField(Sign[][] field) {
+        this.field = field;
+    }
+
     public boolean isGameOver() {
         return gameOver;
     }
